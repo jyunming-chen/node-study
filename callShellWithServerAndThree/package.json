@@ -1,0 +1,12 @@
+{
+  "name": "caa-node-test",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start" : "node main.js",
+    "build": "gcc main.cpp -o main"
+  },
+  "dependencies": {
+    "shelljs": "*"
+  }
+}
