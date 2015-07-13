@@ -2,6 +2,9 @@
 
 main.js will run a http server in http://127.0.0.1:1337
 
+The API takes an angle (theta) and returns the coordinate on the Rose curve.
+
+rose.html, in turn, moves a circle along the rose curve based on the coordinates returned.
 
 ### Setup
 ```
@@ -38,3 +41,4 @@ Solution: add below two response headers to allow all domains access
  - "Access-Control-Allow-Headers": "Content-Type"
 
  Code:  https://github.com/jyunming-chen/node-study/blob/master/mytest/main.js#L61-L62
+ 
