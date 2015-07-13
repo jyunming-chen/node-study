@@ -1,0 +1,14 @@
+{
+  "name": "caa-node-test",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "static-server" : "./node_modules/.bin/http-server",
+    "api-server" : "node main.js",
+    "build": "gcc main.cpp -o main"
+  },
+  "dependencies": {
+    "shelljs": "*",
+    "http-server": "*"
+  }
+}
