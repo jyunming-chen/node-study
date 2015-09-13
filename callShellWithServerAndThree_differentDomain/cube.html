@@ -14,7 +14,7 @@
 		<button id="btn" style="margin: 0 4px;">=</button>
 		<span id="result"></span>
 </div>
-		<div id="canvas" style="margin-top: 20px; height: 400px; width: 400px; border: solid 1px gray;"></div>
+<div id="canvas" style="margin-top: 20px; height: 400px; width: 400px; border: solid 1px gray;"></div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
@@ -29,51 +29,47 @@
 
 			renderer.setClearColor( 0xcacaca, 1);
 			$("#canvas").append( renderer.domElement );
-
-		$("#result").text("1");
-		createShape(1);
-		scene.add(obj);
-
-function createShape (segments){
-
-	    var darkMaterial = new THREE.MeshBasicMaterial( { color: 0xffffcc } );
-		var wireframeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, transparent: true } ); 
-		wireframeMaterial.wireframeLinewidth = 1;
-		var multiMaterial = [ darkMaterial, wireframeMaterial ]; 
-
-	    shape = THREE.SceneUtils.createMultiMaterialObject( 
-		new THREE.SphereGeometry( 2, segments, segments ),
-		multiMaterial );
-
-		obj.add(shape);
-}
-
-$("#btn").click(function(){
-
-    var num = parseInt($("#num").val(), 10);
-    var result = "";
-    if(num > max) {
-    	alert("input too large number! must < "+max);
-    	$("#num").val(max);
-    	num = max;
-    }
-
-    // Call api 
-    // Need to be replaced by a public ip address
-	$.get( "http://127.0.0.1:1337/api?argv="+ num, function( data ) {
-		if(data && data.output){
-			result = parseInt(data.output, 10);
-			$("#result").text(result);
-
-			obj.remove(shape);
-	        createShape(result);
-		}
-	});
-
-
-});
-
 			camera.position.z = 5;
+
+			$("#result").text("1");
+			createShape(1);
+			scene.add(obj);
+
+			function createShape (segments){
+				var darkMaterial = new THREE.MeshBasicMaterial( { color: 0xffffcc } );
+				var wireframeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, transparent: true } ); 
+				wireframeMaterial.wireframeLinewidth = 1;
+				var multiMaterial = [ darkMaterial, wireframeMaterial ]; 
+
+				shape = THREE.SceneUtils.createMultiMaterialObject( 
+				new THREE.SphereGeometry( 2, segments, segments ),
+				multiMaterial );
+
+				obj.add(shape);
+			}
+
+			$("#btn").click(function(){
+				var num = parseInt($("#num").val(), 10);
+				var result = "";
+				if(num > max) {
+					alert("input too large number! must < "+max);
+					$("#num").val(max);
+					num = max;
+				}
+	
+				// Call api: Need to be replaced by a public ip address
+				$.get( "http://127.0.0.1:1337/api?argv="+ num, function( data ) {
+					if(data && data.output){
+						result = parseInt(data.output, 10);
+						$("#result").text(result);
+
+						obj.remove(shape);
+						createShape(result);
+					}
+				});
+
+
+			});
 
 			var render = function () {
 				requestAnimationFrame( render );

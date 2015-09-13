@@ -17,7 +17,7 @@ function onRequest(request, response) {
     var queryData = url.parse(request.url, true).query;
     console.log("query data ", queryData);
 
-    if(pathname == "/api"){
+    if (pathname == "/api") {
     // Async call to exec()
 	    var argv = queryData && queryData["argv"] || "";
 		

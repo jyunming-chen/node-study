@@ -37,9 +37,10 @@ function onRequest(request, response) {
 
     // ROUTE: api
     if(pathname == "/api"){
+    // Async call to exec()
 	    var argv = queryData && queryData["argv"] || "";
 		
-		exec('main.exe ' + argv, function(status, output) { // Async call to exec()
+		exec('main.exe ' + argv, function(status, output) {
 		  console.log('Exit status:', status);
 		  console.log('Program output:', output);
 
@@ -47,6 +48,7 @@ function onRequest(request, response) {
           	status: status,
           	output: output
           };
+
 
           /*
             The response header for supporting CORS:
@@ -59,6 +61,7 @@ function onRequest(request, response) {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Headers": "Content-Type"
 		  });
+
 
 		  response.write(JSON.stringify(output));
 		  response.end();

@@ -14,10 +14,17 @@ int main(int argc, char *argv[]) {
     	printf("0");
 		exit (1);
     } 
+
+	// anyone of these should work ...
+
 	int num;
-	//sscanf (argv[1], "%d", &num); // somehow, this does NOT work...
-	num = strtol(argv[1], NULL, 10);
+	//1. sscanf (argv[1], "%d", &num);
+	//2. num = strtol(argv[1], NULL, 10);
+	num = atoi (argv[1]);
+
 	printf("%d", factorial(num) ); // output
     
     exit(0);
 }
+
+
