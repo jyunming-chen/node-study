@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<style>
+#hh {
+    text-align: center;
+    padding: 10px;
+    background-color: yellow;
+}
+#wins {
+    text-align: center;
+    padding: 10px;
+    font-size: 200%
+}
+#submit {
+    font-size: 80%
+}
+</style>
+</head>
+
+<body> 
+<h1 id="hh"> Action Prediction </h1>
+<div id="wins">
+<textarea id="w"></textarea> / 100 
+<br/>
+<button type="button" id="submit">Submit
+    <!-- button: clickable button--->
+</button>
+<p id='result'></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js">
+</script>
+<script>
+$( '#submit' ).click ( function() {
+    var wins = $('#w').val() || 10;
+
+	$.get( "http://127.0.0.1:1337/api?argv="+ wins, function( data ) {
+		if(data && data.output){
+			$('#result').text(data.output);
+			console.log (data.output);
+		}
+	});	
+});
+</script>
+</body>
+
+</html>

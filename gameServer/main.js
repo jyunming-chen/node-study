@@ -1,17 +1,22 @@
-require('shelljs/global');
+var localStorage = require('localStorage');
 
 var ip   = "127.0.0.1",
     port = 1337,
     http = require('http'),
     url = require("url"),
     path = require("path");
-   // fs = require("fs");
+
+// for testing purpuse: 
+// clear stats for each server starts	
+//
+localStorage.clear();
+console.log ('LS: ' + localStorage.length);
 
 function onRequest(request, response) {
     
-	// console.log(request.method);
-    // console.log(request.headers);
-    // console.log(request.url);
+	 // console.log(request.method);
+     // console.log(request.headers);
+     // console.log(request.url);
 
     var pathname = url.parse(request.url).pathname;
     console.log("Request for " + pathname + " received.");
@@ -19,38 +24,30 @@ function onRequest(request, response) {
     var queryData = url.parse(request.url, true).query;
     console.log("query data ", queryData);
 
-    // USE Another Server to handle static file  (cube.html)
-    /*
-    // ROUTE: cube page
-    if(pathname == "/"){
-	    var filename = "./cube.html";
-		    response.writeHead(200, {
-	        "Content-Type": "text/html"
-	    });
-	    fs.readFile(filename, "utf8", function(err, data) {
-	        if (err) throw err;
-	        response.write(data);
-	        response.end();
-	    });
-	}
-	*/
-
     // ROUTE: api
     if(pathname == "/api"){
-    // Async call to exec()
 	    var argv = queryData && queryData["argv"] || "";
-		
-		exec('main.exe ' + argv, function(status, output) {
-		  console.log('Exit status:', status);
-		  console.log('Program output:', output);
 
-          var output = {
-          	status: status,
-          	output: output
+		// compute running average ...
+		var aveStr = localStorage.getItem ('runAve');
+		var average;
+		if (aveStr === null) 
+			average = {n: 0, ave: 0};
+		else
+			average = JSON.parse (aveStr);
+	
+		// gotcha!
+		average.ave = (Number(average.ave * average.n) + Number(argv))/(Number(average.n)+1);
+		average.n++;
+		localStorage.setItem ('runAve', JSON.stringify (average) );
+		
+		// response without shelljs
+          var outputObj = {
+          	status: 1,
+          	output: average.n +', ' + average.ave
           };
 
-
-          /*
+	      /*
             The response header for supporting CORS:
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Headers": "Content-Type"
@@ -63,10 +60,9 @@ function onRequest(request, response) {
 		  });
 
 
-		  response.write(JSON.stringify(output));
+		  response.write(JSON.stringify(outputObj));
 		  response.end();
-
-		});
+		
 	}
     // ROUTE: 404
 	else {
