@@ -19,31 +19,17 @@ function onRequest(request, response) {
     var queryData = url.parse(request.url, true).query;
     console.log("query data ", queryData);
 
-    // USE Another Server to handle static file  (cube.html)
-    /*
-    // ROUTE: cube page
-    if(pathname == "/"){
-	    var filename = "./cube.html";
-		    response.writeHead(200, {
-	        "Content-Type": "text/html"
-	    });
-	    fs.readFile(filename, "utf8", function(err, data) {
-	        if (err) throw err;
-	        response.write(data);
-	        response.end();
-	    });
-	}
-	*/
-
     // ROUTE: api
     if(pathname == "/api"){
-	    var argv = queryData && queryData["argv"] || "";
+	    var vec = queryData && queryData["v[]"] || "";
+		console.log (vec);
 		
-		exec('main.exe ' + argv, function(status, output) { // Async call to exec()
-		  console.log('Exit status:', status);
-		  console.log('Program output:', output);
+		exec('main.exe ' + Number(vec[0]) + ' ' + Number(vec[1]) + ' ' + Number(vec[2]), 
+		  function(status, output) { // Async call to exec()
+		    console.log('Exit status:', status);
+		    console.log('Program output:', output);
 
-          var output = {
+          var outputStr = {
           	status: status,
           	output: output
           };
@@ -60,10 +46,11 @@ function onRequest(request, response) {
             "Access-Control-Allow-Headers": "Content-Type"
 		  });
 	
-		  response.write(JSON.stringify(output));
+		  response.write(JSON.stringify(outputStr));
 		  response.end();
 
 		});
+		
 	}
     // ROUTE: 404
 	else {

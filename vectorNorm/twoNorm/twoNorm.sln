@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "twoNorm", "twoNorm.vcproj", "{C732C5A4-4BBE-4EF0-8182-FC0B466594EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C732C5A4-4BBE-4EF0-8182-FC0B466594EA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C732C5A4-4BBE-4EF0-8182-FC0B466594EA}.Debug|Win32.Build.0 = Debug|Win32
+		{C732C5A4-4BBE-4EF0-8182-FC0B466594EA}.Release|Win32.ActiveCfg = Release|Win32
+		{C732C5A4-4BBE-4EF0-8182-FC0B466594EA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
