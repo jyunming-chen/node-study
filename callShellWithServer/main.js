@@ -7,9 +7,9 @@ var ip   = "127.0.0.1",
 
 function onRequest(request, response) {
     
-	// console.log(request.method);
-    // console.log(request.headers);
-    // console.log(request.url);
+	// console.log('\nmethod: ' +　request.method);
+    // console.log('\nheaders: ' +request.headers);
+    // console.log('\nurl: ' +request.url);
 
     var pathname = url.parse(request.url).pathname;
     console.log("Request for " + pathname + " received.");

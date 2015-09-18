@@ -24,8 +24,9 @@ function onRequest(request, response) {
 	    var vec = queryData && queryData["v[]"] || "";
 		console.log (vec);
 		
-		exec('main.exe ' + Number(vec[0]) + ' ' + Number(vec[1]) + ' ' + Number(vec[2]), 
-		  function(status, output) { // Async call to exec()
+//		exec('main.exe ' + Number(vec[0]) + ' ' + Number(vec[1]) + ' ' + Number(vec[2]), 
+		exec('main.exe ' + vec[0] + ' ' + vec[1] + ' ' + vec[2], 
+		function(status, output) { // Async call to exec()
 		    console.log('Exit status:', status);
 		    console.log('Program output:', output);
 
